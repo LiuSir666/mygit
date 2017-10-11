@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 保持一致就是复制粘贴 -->
+<!-- namespace 要和接口名字保持一致 -->
+<mapper namespace="com.zhiyou100.dao.UserDao">
+
+    <!-- id 要和方法名字保持一致 -->
+    <!-- parameterType 要和方法的参数保持一致 -->
+    <!-- resultType 要和方法的返回值保持一致 -->
+    <select id="getUser" resultType="user">
+        SELECT
+            id,
+            username,
+            password
+        FROM
+            user
+        WHERE
+            username = #{username}
+    </select>
+    
+    <insert id="addUser" parameterType="user">
+        INSERT INTO
+            user
+        VALUES
+            (null, #{username}, #{password})
+    </insert>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 保持一致就是复制粘贴 -->
+<!-- namespace 要和接口名字保持一致 -->
+<mapper namespace="com.zhiyou100.dao.UserCouponDao">
+
+    <!-- 如果没有 ignore 联合主键重复的话会抛出异常 -->
+    <!-- 如果加上了，返回 0 -->
+    <!-- ignore 忽略主键重复异常，插入不会成功 -->
+    <insert id="addUserCoupon">
+        
+        INSERT ignore INTO
+            user_coupon
+            (user_id, coupon_id)
+        VALUES
+            (#{arg0}, #{arg1})
+    </insert>
+
+</mapper>

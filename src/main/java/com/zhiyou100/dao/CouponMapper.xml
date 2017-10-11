@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 保持一致就是复制粘贴 -->
+<!-- namespace 要和接口名字保持一致 -->
+<mapper namespace="com.zhiyou100.dao.CouponDao">
+
+    <select id="listCoupon" resultType="coupon">
+        SELECT
+            id,
+            title,
+            `desc`,
+            start_time,
+            end_time,
+            number
+         From
+            coupon
+    </select>
+    
+    <update id="updateCoupon">
+        UPDATE
+            coupon
+        SET
+            number = number - 1
+        WHERE
+            id = #{arg0}
+        AND
+            number > 0
+        AND
+            start_time <![CDATA[ <= ]]> #{arg1}
+        AND 
+            end_time >= #{arg1}    
+    </update>
+
+</mapper>

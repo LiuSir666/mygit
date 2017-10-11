@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 识别 controller 包中与 SpringMVC 相关的注解：@RequestMapping, @RequestParam... -->
+	<context:component-scan base-package="com.zhiyou100.controller" />
+
+    <!-- 使用系统默认的设置，简化配置流程 -->
+    <!-- 
+        1. 使用默认的 handlerMapping 和 handlerAdapter 查询 request 和对应的 controller
+        2. @RequestMapping, @RequestParam 等注解的支持
+        3. 支持 json，restful
+     -->
+    <mvc:annotation-driven/>
+    
+    <!-- 设置页面路径前缀和后缀 -->
+    <!-- 放在 WEB-INF 下的文件，别人不能通过 url 访问，可以提高数据的安全性 -->
+    <!-- 只能通过请求转发获取 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    <!-- 使用默认的 handler，支持静态资源的访问 -->
+    <mvc:default-servlet-handler/>
+    
+    <mvc:interceptors>
+    
+        <!-- 对领取优惠券进行登录验证 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/coupons/receive"/>
+            <bean class="com.zhiyou100.filter.LoginFilter"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+</beans>
